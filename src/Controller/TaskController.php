@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
-use AppBundle\Form\TaskType;
+use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use AppBundle\Form\UserType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
