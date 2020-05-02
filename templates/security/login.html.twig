@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+        <label for="username">Nom d'utilisateur :</label>
+        <input type="text" id="username" name="username" value="{{ last_username }}"
+               class="form-control" placeholder="username" required/>
+
+        <label for="inputPassword" class="sr-only">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword"
+               class="form-control" placeholder="Password" required/>
+
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Se souvenir de moi
+            </label>
+        </div>
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Connexion
+        </button>
+    </form>
+{% endblock %}

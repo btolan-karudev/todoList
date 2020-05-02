@@ -2,34 +2,33 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Twig\Environment;
 
-class SecurityController extends Controller
+class SecurityController
 {
     /**
      * @Route("/login", name="login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @param Environment $twig
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function loginAction(Request $request)
+    public function login(AuthenticationUtils $authenticationUtils, Environment $twig): Response
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
         $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', array(
+        $render = $twig->render('security/login.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
-    }
-
-    /**
-     * @Route("/login_check", name="login_check")
-     */
-    public function loginCheck()
-    {
-        // This code is never executed.
+            'error' => $error,
+        ]);
+        return new Response($render);
     }
 
     /**

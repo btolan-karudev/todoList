@@ -4,91 +4,155 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
-class TaskController extends Controller
+class TaskController
 {
     /**
      * @Route("/tasks", name="task_list")
+     * @param  EntityManagerInterface  $em
+     * @param Environment $twig
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function listAction()
+    public function listAction(EntityManagerInterface  $em, Environment $twig)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
+        $render= $twig->render('task/list.html.twig', [
+            'tasks' => $em->getRepository(Task::class)->findAll()
+        ]);
+
+        return new Response($render);
     }
 
     /**
      * @Route("/tasks/create", name="task_create")
+     * @param Request $request
+     * @param FormFactoryInterface $formFactory
+     * @param Environment $twig
+     * @param UrlGeneratorInterface $generator
+     * @param Session $session
+     * @param EntityManagerInterface $em
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request,FormFactoryInterface $formFactory, Environment $twig,
+                                 UrlGeneratorInterface $generator, Session $session, EntityManagerInterface  $em)
     {
         $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $formFactory->create(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $em = $this->getDoctrine()->getManager();
 
             $em->persist($task);
             $em->flush();
 
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
+            $session->getFlashBag()->add('success', 'La tâche a été bien été ajoutée.');
 
-            return $this->redirectToRoute('task_list');
+            $router = $generator->generate('task_list');
+            return new RedirectResponse($router, 302);
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        $render= $twig->render('task/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+        return new Response($render);
     }
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
+     * @param Task $task
+     * @param Request $request
+     * @param Environment $twig
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $generator
+     * @param Session $session
+     * @param EntityManagerInterface $em
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function editAction(Task $task, Request $request)
+    public function editAction(Task $task, Request $request, Environment $twig, FormFactoryInterface $formFactory,
+                               UrlGeneratorInterface $generator, Session $session, EntityManagerInterface  $em)
     {
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $form = $formFactory->create(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
 
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
+            $session->getFlashBag()->add('success', 'La tâche a bien été modifiée.');
 
-            return $this->redirectToRoute('task_list');
+            $router = $generator->generate('task_list');
+            return new RedirectResponse($router, 302);
         }
 
-        return $this->render('task/edit.html.twig', [
+        $render= $twig->render('task/edit.html.twig', [
             'form' => $form->createView(),
             'task' => $task,
         ]);
+
+        return new Response($render);
     }
 
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @param Task $task
+     * @param UrlGeneratorInterface $generator
+     * @param Session $session
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse
      */
-    public function toggleTaskAction(Task $task)
+    public function toggleTaskAction(Task $task, UrlGeneratorInterface $generator, Session $session,
+                                     EntityManagerInterface  $em)
     {
         $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
+        $em->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $session->getFlashBag()->add(
+            'success',
+            sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle())
+        );
 
-        return $this->redirectToRoute('task_list');
+        $router = $generator->generate('task_list');
+
+        return new RedirectResponse($router, 302);
     }
 
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
+     * @param Task $task
+     * @param UrlGeneratorInterface $generator
+     * @param Session $session
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse
      */
-    public function deleteTaskAction(Task $task)
+    public function deleteTaskAction(Task $task, UrlGeneratorInterface $generator, Session $session,
+                                     EntityManagerInterface  $em)
     {
-        $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
 
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
+        $session->getFlashBag()->add('success', 'La tâche a bien été supprimée.');
 
-        return $this->redirectToRoute('task_list');
+        $router = $generator->generate('task_list');
+
+        return new RedirectResponse($router, 302);
     }
 }
