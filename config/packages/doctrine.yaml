@@ -4,7 +4,7 @@ doctrine:
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '5.7'
+        server_version: '8.0'
 
         # only needed for MySQL
         charset: utf8mb4
@@ -21,6 +21,6 @@ doctrine:
             App:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/AppBundle/Entity'
-                prefix: 'AppBundle\Entity'
-                alias: AppBundle
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
