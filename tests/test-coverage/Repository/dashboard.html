@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for C:\Users\mickd\Documents\diplome php symfony\projet 8\code_source\projet8-TodoList\src\Entity</title>
+  <title>Dashboard for C:\Users\mickd\Documents\diplome php symfony\projet 8\code_source\projet8-TodoList\src\Repository</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">C:\Users\mickd\Documents\diplome php symfony\projet 8\code_source\projet8-TodoList\src</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Entity</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Repository</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -111,7 +111,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="User.php.html#121"><abbr title="App\Entity\User::eraseCredentials">eraseCredentials</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -156,7 +155,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,1,1], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -174,7 +173,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,26], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -224,7 +223,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,14,"<a href=\"Task.php.html#12\">App\\Entity\\Task<\/a>"],[96.55172413793103,18,"<a href=\"User.php.html#17\">App\\Entity\\User<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"UserRepository.php.html#21\">App\\Repository\\UserRepository<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -248,7 +247,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Task.php.html#48\">App\\Entity\\Task::__construct<\/a>"],[100,1,"<a href=\"Task.php.html#54\">App\\Entity\\Task::getId<\/a>"],[100,1,"<a href=\"Task.php.html#59\">App\\Entity\\Task::getCreatedAt<\/a>"],[100,1,"<a href=\"Task.php.html#64\">App\\Entity\\Task::setCreatedAt<\/a>"],[100,1,"<a href=\"Task.php.html#69\">App\\Entity\\Task::getTitle<\/a>"],[100,1,"<a href=\"Task.php.html#74\">App\\Entity\\Task::setTitle<\/a>"],[100,1,"<a href=\"Task.php.html#79\">App\\Entity\\Task::getContent<\/a>"],[100,1,"<a href=\"Task.php.html#84\">App\\Entity\\Task::setContent<\/a>"],[100,1,"<a href=\"Task.php.html#89\">App\\Entity\\Task::isDone<\/a>"],[100,1,"<a href=\"Task.php.html#94\">App\\Entity\\Task::toggle<\/a>"],[100,2,"<a href=\"Task.php.html#99\">App\\Entity\\Task::getUser<\/a>"],[100,2,"<a href=\"Task.php.html#104\">App\\Entity\\Task::setUser<\/a>"],[100,1,"<a href=\"User.php.html#54\">App\\Entity\\User::__construct<\/a>"],[100,1,"<a href=\"User.php.html#59\">App\\Entity\\User::getId<\/a>"],[100,1,"<a href=\"User.php.html#64\">App\\Entity\\User::getUsername<\/a>"],[100,1,"<a href=\"User.php.html#69\">App\\Entity\\User::setUsername<\/a>"],[100,1,"<a href=\"User.php.html#74\">App\\Entity\\User::getPassword<\/a>"],[100,1,"<a href=\"User.php.html#79\">App\\Entity\\User::setPassword<\/a>"],[100,1,"<a href=\"User.php.html#84\">App\\Entity\\User::getEmail<\/a>"],[100,1,"<a href=\"User.php.html#89\">App\\Entity\\User::setEmail<\/a>"],[100,1,"<a href=\"User.php.html#94\">App\\Entity\\User::getRoles<\/a>"],[100,1,"<a href=\"User.php.html#103\">App\\Entity\\User::setRoles<\/a>"],[100,1,"<a href=\"User.php.html#113\">App\\Entity\\User::getSalt<\/a>"],[0,1,"<a href=\"User.php.html#121\">App\\Entity\\User::eraseCredentials<\/a>"],[100,1,"<a href=\"User.php.html#130\">App\\Entity\\User::getTasks<\/a>"],[100,2,"<a href=\"User.php.html#135\">App\\Entity\\User::addTask<\/a>"],[100,3,"<a href=\"User.php.html#145\">App\\Entity\\User::removeTask<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"UserRepository.php.html#23\">App\\Repository\\UserRepository::__construct<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
