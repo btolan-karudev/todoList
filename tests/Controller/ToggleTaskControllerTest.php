@@ -2,18 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: mickd
- * Date: 04/05/2020
- * Time: 11:58
+ * Date: 06/05/2020
+ * Time: 18:42
  */
 
 namespace App\Tests\Controller;
 
+
+use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
-class ListTaskControllerTest extends WebTestCase
+class ToggleTaskControllerTest extends WebTestCase
 {
     protected $client = null;
 
@@ -27,14 +29,19 @@ class ListTaskControllerTest extends WebTestCase
         return $this->client;
     }
 
-    public function testListTaskLoggedIn()
+    public function testToggleTaskAction()
     {
         $this->doSetUp();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', '/tasks');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1,$crawler->filter('.tasks')->count());
+        $em = self::$container->get('doctrine')->getManager();
+        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_one']);
+        $isDone = $task->isDone();
+
+        $this->doSetUp()->request('GET', '/tasks/1/toggle');
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(!$isDone, $task->isDone());
     }
 
     public function logIn()

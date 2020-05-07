@@ -2,39 +2,49 @@
 /**
  * Created by PhpStorm.
  * User: mickd
- * Date: 04/05/2020
- * Time: 11:58
+ * Date: 06/05/2020
+ * Time: 10:51
  */
 
 namespace App\Tests\Controller;
+
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
-class ListTaskControllerTest extends WebTestCase
+class EditTaskControllerTest extends WebTestCase
 {
     protected $client = null;
 
     protected function doSetUp()
     {
         if ($this->client == null) {
-
             $this->client = static::createClient();
         }
 
         return $this->client;
     }
 
-    public function testListTaskLoggedIn()
+    public function testEditAction()
     {
         $this->doSetUp();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', '/tasks');
+        $crawler = $this->doSetUp()->request('GET', 'tasks/1/edit');
+
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1,$crawler->filter('.tasks')->count());
+        $this->assertSame('Modifier',$crawler->filter('button')->text());
+
+        $form = $crawler->selectButton('Modifier')->form();
+        $form['task[title]'] = 'title_test_one';
+        $form['task[content]'] = 'content test one';
+        $this->client->submit($form);
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->followRedirect();
+        $this->assertSame(1, $crawler->filter('.alert-success')->count());
     }
 
     public function logIn()
@@ -45,11 +55,9 @@ class ListTaskControllerTest extends WebTestCase
 
         $firewallName = 'main';
         // if you don't define multiple connected firewalls, the context defaults to the firewall name
-        // See https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
         $firewallContext = 'main';
 
         // you may need to use a different token class depending on your application.
-        // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
         $token = new PostAuthenticationGuardToken($user, $firewallName, $user->getRoles());
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();

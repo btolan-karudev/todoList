@@ -2,18 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: mickd
- * Date: 04/05/2020
- * Time: 11:58
+ * Date: 06/05/2020
+ * Time: 11:29
  */
 
 namespace App\Tests\Controller;
 
+
+use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
-class ListTaskControllerTest extends WebTestCase
+class CreateTaskControllerTest extends WebTestCase
 {
     protected $client = null;
 
@@ -27,14 +29,35 @@ class ListTaskControllerTest extends WebTestCase
         return $this->client;
     }
 
-    public function testListTaskLoggedIn()
+    public function testCreateAction()
     {
         $this->doSetUp();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', '/tasks');
+        $user = new User();
+        $mock = $this->createMock('Symfony\Component\Security\Core\Security');
+        $mock->method('getUser')
+            ->willReturn($user);
+
+        $crawler = $this->doSetUp()->request('GET', '/tasks/create');
+
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1,$crawler->filter('.tasks')->count());
+        $this->assertSame('Ajouter',$crawler->filter('button')->text());
+
+        $form = $crawler->selectButton('Ajouter')->form();
+        $form['task[title]'] = 'title_test_three';
+        $form['task[content]'] = 'content test three';
+        $this->client->submit($form);
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->followRedirect();
+        $this->assertSame(1, $crawler->filter('.alert-success')->count());
+
+        $em = self::$container->get('doctrine')->getManager();
+        $tasks = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_three']);
+
+        $em->remove($tasks);
+        $em->flush();
     }
 
     public function logIn()

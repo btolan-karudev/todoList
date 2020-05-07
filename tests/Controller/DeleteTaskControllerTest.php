@@ -2,18 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: mickd
- * Date: 04/05/2020
- * Time: 11:58
+ * Date: 06/05/2020
+ * Time: 20:51
  */
 
 namespace App\Tests\Controller;
 
+
+use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
-class ListTaskControllerTest extends WebTestCase
+class DeleteTaskControllerTest extends WebTestCase
 {
     protected $client = null;
 
@@ -27,14 +29,28 @@ class ListTaskControllerTest extends WebTestCase
         return $this->client;
     }
 
-    public function testListTaskLoggedIn()
+    public function testDeleteTaskAction()
     {
         $this->doSetUp();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', '/tasks');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1,$crawler->filter('.tasks')->count());
+        $task = new Task();
+        $task->setTitle('title_test_for');
+        $task->setContent('content test for');
+
+        $em = self::$container->get('doctrine')->getManager();
+        $em->persist($task);
+        $em->flush();
+
+        $taskInBdd = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_for']);
+
+        $this->doSetUp()->request('GET', '/tasks/'.$taskInBdd->getId().'/delete');
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        $taskVerifDeleteBdd = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_for']);
+
+        $this->assertSame(null, $taskVerifDeleteBdd);
     }
 
     public function logIn()
