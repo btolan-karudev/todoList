@@ -37,6 +37,9 @@ class ListTaskControllerTest extends WebTestCase
         $this->assertEquals(1,$crawler->filter('.tasks')->count());
     }
 
+    /**
+     * allows connection to the application
+     */
     public function logIn()
     {
         $session = self::$container->get('session');

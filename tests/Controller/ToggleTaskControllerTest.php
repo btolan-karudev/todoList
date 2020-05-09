@@ -44,6 +44,9 @@ class ToggleTaskControllerTest extends WebTestCase
         $this->assertSame(!$isDone, $task->isDone());
     }
 
+    /**
+     * allows connection to the application
+     */
     public function logIn()
     {
         $session = self::$container->get('session');

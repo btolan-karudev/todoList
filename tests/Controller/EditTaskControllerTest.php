@@ -47,6 +47,9 @@ class EditTaskControllerTest extends WebTestCase
         $this->assertSame(1, $crawler->filter('.alert-success')->count());
     }
 
+    /**
+     * allows connection to the application
+     */
     public function logIn()
     {
         $session = self::$container->get('session');

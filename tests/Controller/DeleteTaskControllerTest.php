@@ -53,6 +53,9 @@ class DeleteTaskControllerTest extends WebTestCase
         $this->assertSame(null, $taskVerifDeleteBdd);
     }
 
+    /**
+     * allows connection to the application
+     */
     public function logIn()
     {
         $session = self::$container->get('session');

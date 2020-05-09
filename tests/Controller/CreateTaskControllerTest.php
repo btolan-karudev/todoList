@@ -44,6 +44,7 @@ class CreateTaskControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('Ajouter',$crawler->filter('button')->text());
 
+        //allows to submit page form
         $form = $crawler->selectButton('Ajouter')->form();
         $form['task[title]'] = 'title_test_three';
         $form['task[content]'] = 'content test three';
@@ -53,6 +54,7 @@ class CreateTaskControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         $this->assertSame(1, $crawler->filter('.alert-success')->count());
 
+        //delete the recorded data
         $em = self::$container->get('doctrine')->getManager();
         $tasks = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_three']);
 
@@ -60,6 +62,9 @@ class CreateTaskControllerTest extends WebTestCase
         $em->flush();
     }
 
+    /**
+     * allows connection to the application
+     */
     public function logIn()
     {
         $session = self::$container->get('session');
