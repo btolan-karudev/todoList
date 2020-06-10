@@ -37,14 +37,14 @@ class TaskTypeTest extends TypeTestCase
 
         $this->assertTrue($form->isSynchronized());
 
-        $this->assertEquals($task->getTitle(), $taskToCompare->getTitle());
+
+        foreach (array_keys($data) as $key) {
+            $this->assertArrayHasKey($key, $children);
+        }
+    }        $this->assertEquals($task->getTitle(), $taskToCompare->getTitle());
         $this->assertEquals($task->getContent(), $taskToCompare->getContent());
 
         $view = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($data) as $key) {
-            $this->assertArrayHasKey($key, $children);
-        }
-    }
 }
