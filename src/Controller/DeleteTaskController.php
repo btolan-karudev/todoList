@@ -36,7 +36,6 @@ class DeleteTaskController
         }
 
         $router = $generator->generate('task_list');
-
         return new RedirectResponse($router, 302);
     }
 }
