@@ -47,10 +47,24 @@ class DeleteTaskControllerTest extends WebTestCase
         $this->doSetUp()->request('GET', '/tasks/'.$taskInBdd->getId().'/delete');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->followRedirect();
+        $this->assertSame(1, $crawler->filter('.alert-success')->count());
 
         $taskVerifDeleteBdd = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_for']);
 
         $this->assertSame(null, $taskVerifDeleteBdd);
+    }
+
+    public function testDeleteTaskActionNoAuthorized()
+    {
+        $this->doSetUp();
+        $this->logIn();
+
+        $this->doSetUp()->request('GET', '/tasks/105/delete');
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->followRedirect();
+        $this->assertSame(1, $crawler->filter('.alert-danger')->count());
     }
 
     /**
