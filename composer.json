@@ -8,6 +8,9 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "behat/behat": "^3.7",
+        "behat/mink-extension": "^2.3",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/symfony2-extension": "^2.1",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/orm": "^2.7",
@@ -32,10 +35,11 @@
         "twig/extra-bundle": "^3.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.4",
-        "symfony/web-server-bundle": "^4.4",
+        "dama/doctrine-test-bundle": "^6.3",
         "symfony/maker-bundle": "^1.15",
-        "symfony/profiler-pack": "^1.0"
+        "symfony/phpunit-bridge": "^4.4",
+        "symfony/profiler-pack": "^1.0",
+        "symfony/web-server-bundle": "^4.4"
     },
     "config": {
         "preferred-install": {
