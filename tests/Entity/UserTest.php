@@ -35,6 +35,8 @@ class UserTest extends TestCase
         $user->setRoles(['ROLE_ADMIN']);
         $this->assertArrayHasKey(0 , $user->getRoles(), 'ROLE_ADMIN');
 
+        $user->eraseCredentials();
+
         $tasks = new Task();
         $user->addTask($tasks);
 

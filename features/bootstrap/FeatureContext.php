@@ -146,7 +146,6 @@ class FeatureContext extends MinkContext implements Context
     }
 
 
-
     /**
      * @BeforeSuite
      */
