@@ -17,7 +17,8 @@ Cliquer sur le bouton `Code` puis copier-coller le lien sous l’onglet « Clone
 _Le téléchargement commence. A Noter : 
 Pendant la phase de téléchargement du code source, il se peut que Git demande votre login et votre mot de passe._ 
 
-##Commit :  
+##Commit : 
+ 
 Dans un premier temps. Vous allez créer une nouvelle branche. Cette branche aura comme nom, le nom de la fonctionnalité créer. Les fonctionnalités à créer son écrite dans la partie issues sur le GitHub de l’auteur du projet. Pour créer cette branche vous pouvez utiliser la commande `git checkout –b …….(le nom de la branche)…` .  
 **ex:**	 `git checkout –b tests_unitaire_update`  
 
