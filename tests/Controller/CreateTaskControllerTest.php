@@ -8,15 +8,17 @@
 
 namespace App\Tests\Controller;
 
-
-use App\Entity\Task;
+use App\DataFixtures\AppFixtures;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 
 class CreateTaskControllerTest extends WebTestCase
 {
+    use FixturesTrait;
+
     protected $client = null;
 
     protected function doSetUp()
@@ -26,12 +28,18 @@ class CreateTaskControllerTest extends WebTestCase
             $this->client = static::createClient();
         }
 
+
+
         return $this->client;
     }
 
     public function testCreateAction()
     {
         $this->doSetUp();
+        $this->loadFixtures([
+            AppFixtures::class,
+        ]);
+
         $this->logIn();
 
         $user = new User();
@@ -53,13 +61,6 @@ class CreateTaskControllerTest extends WebTestCase
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
         $crawler = $this->client->followRedirect();
         $this->assertSame(1, $crawler->filter('.alert-success')->count());
-
-        //delete the recorded data
-        $em = self::$container->get('doctrine')->getManager();
-        $tasks = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_three']);
-
-        $em->remove($tasks);
-        $em->flush();
     }
 
     /**

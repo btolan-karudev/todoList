@@ -17,12 +17,20 @@ use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 class EditUserControllerTest extends WebTestCase
 {
     protected $client = null;
+    public $userInBdd;
+    public $em;
 
     protected function doSetUp()
     {
         if ($this->client == null) {
 
             $this->client = static::createClient();
+        }
+
+        if ($this->userInBdd == null)
+        {
+            $this->em = self::$container->get('doctrine')->getManager();
+            $this->userInBdd = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
         }
 
         return $this->client;
@@ -33,7 +41,7 @@ class EditUserControllerTest extends WebTestCase
         $this->doSetUp();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', 'users/1/edit');
+        $crawler = $this->doSetUp()->request('GET', 'users/'.$this->userInBdd->getId().'/edit');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('Modifier',$crawler->filter('button')->text());
@@ -55,7 +63,7 @@ class EditUserControllerTest extends WebTestCase
     {
         $session = self::$container->get('session');
 
-        $user = self::$container->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'username_test']);
+        $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
 
         $firewallName = 'main';
         // if you don't define multiple connected firewalls, the context defaults to the firewall name

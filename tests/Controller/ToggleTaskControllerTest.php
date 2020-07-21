@@ -18,12 +18,20 @@ use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 class ToggleTaskControllerTest extends WebTestCase
 {
     protected $client = null;
+    public $em;
+    public $taskInBdd;
 
     protected function doSetUp()
     {
         if ($this->client == null) {
 
             $this->client = static::createClient();
+        }
+
+        if ($this->taskInBdd == null)
+        {
+            $this->em = self::$container->get('doctrine')->getManager();
+            $this->taskInBdd = $this->em->getRepository(Task::class)->findOneBy(['title' => 'title_test_one']);
         }
 
         return $this->client;
@@ -34,14 +42,12 @@ class ToggleTaskControllerTest extends WebTestCase
         $this->doSetUp();
         $this->logIn();
 
-        $em = self::$container->get('doctrine')->getManager();
-        $task = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_one']);
-        $isDone = $task->isDone();
+        $isDone = $this->taskInBdd->isDone();
 
-        $this->doSetUp()->request('GET', '/tasks/1/toggle');
+        $this->doSetUp()->request('GET', '/tasks/'.$this->taskInBdd->getId().'/toggle');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(!$isDone, $task->isDone());
+        $this->assertSame(!$isDone, $this->taskInBdd->isDone());
     }
 
     /**
@@ -51,7 +57,7 @@ class ToggleTaskControllerTest extends WebTestCase
     {
         $session = self::$container->get('session');
 
-        $user = self::$container->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'username_test']);
+        $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
 
         $firewallName = 'main';
         // if you don't define multiple connected firewalls, the context defaults to the firewall name

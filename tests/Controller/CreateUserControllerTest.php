@@ -49,13 +49,6 @@ class CreateUserControllerTest extends WebTestCase
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
         $crawler = $this->client->followRedirect();
         $this->assertSame(1, $crawler->filter('.alert-success')->count());
-
-        //delete the recorded data
-        $em = self::$container->get('doctrine')->getManager();
-        $tasks = $em->getRepository(User::class)->findOneBy(['username' => 'username_test_two']);
-
-        $em->remove($tasks);
-        $em->flush();
     }
 
     /**

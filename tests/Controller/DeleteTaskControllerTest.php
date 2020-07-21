@@ -18,12 +18,22 @@ use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 class DeleteTaskControllerTest extends WebTestCase
 {
     protected $client = null;
+    public $em;
+    public $taskInBddnoDeleted;
+    public $taskInBdd;
 
     protected function doSetUp()
     {
         if ($this->client == null) {
 
             $this->client = static::createClient();
+        }
+
+        if ($this->taskInBdd == null)
+        {
+            $this->em = self::$container->get('doctrine')->getManager();
+            $this->taskInBdd = $this->em->getRepository(Task::class)->findOneBy(['title' => 'title_test_one']);
+            $this->taskInBddnoDeleted = $this->em->getRepository(Task::class)->findOneBy(['title' => 'task_of_test']);
         }
 
         return $this->client;
@@ -34,23 +44,14 @@ class DeleteTaskControllerTest extends WebTestCase
         $this->doSetUp();
         $this->logIn();
 
-        $task = new Task();
-        $task->setTitle('title_test_for');
-        $task->setContent('content test for');
 
-        $em = self::$container->get('doctrine')->getManager();
-        $em->persist($task);
-        $em->flush();
-
-        $taskInBdd = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_for']);
-
-        $this->doSetUp()->request('GET', '/tasks/'.$taskInBdd->getId().'/delete');
+        $this->doSetUp()->request('GET', '/tasks/'.$this->taskInBdd->getId().'/delete');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
         $crawler = $this->client->followRedirect();
         $this->assertSame(1, $crawler->filter('.alert-success')->count());
 
-        $taskVerifDeleteBdd = $em->getRepository(Task::class)->findOneBy(['title' => 'title_test_for']);
+        $taskVerifDeleteBdd = $this->em->getRepository(Task::class)->findOneBy(['title' => 'title_test_one']);
 
         $this->assertSame(null, $taskVerifDeleteBdd);
     }
@@ -60,7 +61,7 @@ class DeleteTaskControllerTest extends WebTestCase
         $this->doSetUp();
         $this->logIn();
 
-        $this->doSetUp()->request('GET', '/tasks/105/delete');
+        $this->doSetUp()->request('GET', '/tasks/'.$this->taskInBddnoDeleted->getId().'/delete');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
         $crawler = $this->client->followRedirect();
@@ -74,7 +75,7 @@ class DeleteTaskControllerTest extends WebTestCase
     {
         $session = self::$container->get('session');
 
-        $user = self::$container->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'username_test']);
+        $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
 
         $firewallName = 'main';
         // if you don't define multiple connected firewalls, the context defaults to the firewall name
