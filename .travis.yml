@@ -8,6 +8,6 @@ script:
   - composer install
   - php bin/console doctrine:database:create --env=test
   - php bin/console doctrine:schema:update --force --env=test
-  - ./vendor/bin/simple-phpunit
   - ./vendor/bin/behat
+  - ./vendor/bin/simple-phpunit
 
