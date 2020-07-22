@@ -26,7 +26,7 @@ class CreateTaskControllerTest extends WebTestCase
             AdminUserFixture::class,
         ]);
 
-        $fix = $this->client;
+        $this->fix = $this->client;
     }
 
     public function testCreateAction()
