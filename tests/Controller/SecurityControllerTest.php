@@ -15,10 +15,9 @@ class SecurityControllerTest extends WebTestCase
 {
     public function testLoggedIn()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/login');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('Nom d\'utilisateur :', $crawler->filter('label')->text());
     }
 }

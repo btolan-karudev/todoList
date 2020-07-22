@@ -4,9 +4,10 @@ Feature: user
   I must validate put write in the form
 
   Scenario: this connect
+    Given I want to connect to the name of "username_test"
     Given I am on "/login"
     When I fill in "username" with "username_test"
-    And I fill in "password" with "1"
+    And I fill in "password" with "admin"
     And I press "button"
     Then I should see "Créer une nouvelle tâche"
 

@@ -68,6 +68,14 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
+     * @Given I want to connect to the name of :userName
+     */
+    public function iWantToConnectToTheNameOf($userName)
+    {
+        $this->thereIsAnAdminUserWithPassword($userName, 'admin');
+    }
+
+    /**
      * @When I click :linkName
      * @param $linkName
      */

@@ -9,43 +9,44 @@
 namespace App\Tests\Controller;
 
 
+use App\DataFixtures\AppFixtures;
 use App\Entity\Task;
 use App\Entity\User;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
 class EditTaskControllerTest extends WebTestCase
 {
-    protected $client = null;
-    public $em;
-    public $taskInBdd;
+    use FixturesTrait;
 
-    protected function doSetUp()
+    protected $em;
+    protected $taskInBdd;
+
+    protected function dataFixture()
     {
-        if ($this->client == null) {
-            $this->client = static::createClient();
-        }
+        if ($this->taskInBdd == null) {
+            $this->loadFixtures([
+                AppFixtures::class,
+            ]);
 
-        if ($this->taskInBdd == null)
-        {
             $this->em = self::$container->get('doctrine')->getManager();
             $this->taskInBdd = $this->em->getRepository(Task::class)->findOneBy(['title' => 'title_test_one']);
         }
-
-        return $this->client;
     }
 
     public function testEditAction()
     {
-        $this->doSetUp();
+        $this->dataFixture();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', 'tasks/'.$this->taskInBdd->getId().'/edit');
+        $crawler = $this->client->request('GET', 'tasks/'.$this->taskInBdd->getId().'/edit');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('Modifier',$crawler->filter('button')->text());
 
+        //task modification form
         $form = $crawler->selectButton('Modifier')->form();
         $form['task[title]'] = 'title_test_one';
         $form['task[content]'] = 'content test one';
@@ -66,15 +67,14 @@ class EditTaskControllerTest extends WebTestCase
         $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
 
         $firewallName = 'main';
-        // if you don't define multiple connected firewalls, the context defaults to the firewall name
+
         $firewallContext = 'main';
 
-        // you may need to use a different token class depending on your application.
         $token = new PostAuthenticationGuardToken($user, $firewallName, $user->getRoles());
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());
-        $this->doSetUp()->getCookieJar()->set($cookie);
+        $this->client->getCookieJar()->set($cookie);
     }
 }

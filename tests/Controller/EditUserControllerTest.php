@@ -9,43 +9,44 @@
 namespace App\Tests\Controller;
 
 
+use App\DataFixtures\AppFixtures;
 use App\Entity\User;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
 class EditUserControllerTest extends WebTestCase
 {
-    protected $client = null;
-    public $userInBdd;
-    public $em;
+    use FixturesTrait;
 
-    protected function doSetUp()
+    protected $userInBdd;
+    protected $em;
+
+    protected function dataFixture()
     {
-        if ($this->client == null) {
+        if ($this->userInBdd == null) {
+            $this->loadFixtures([
+                AppFixtures::class,
+            ]);
 
-            $this->client = static::createClient();
-        }
-
-        if ($this->userInBdd == null)
-        {
             $this->em = self::$container->get('doctrine')->getManager();
             $this->userInBdd = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
         }
 
-        return $this->client;
     }
 
     public function testEditAction()
     {
-        $this->doSetUp();
+        $this->dataFixture();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', 'users/'.$this->userInBdd->getId().'/edit');
+        $crawler = $this->client->request('GET', 'users/'.$this->userInBdd->getId().'/edit');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('Modifier',$crawler->filter('button')->text());
 
+        //user modification form
         $form = $crawler->selectButton('Modifier')->form();
         $form['user[password][first]'] = '1';
         $form['user[password][second]'] = '1';
@@ -66,17 +67,14 @@ class EditUserControllerTest extends WebTestCase
         $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
 
         $firewallName = 'main';
-        // if you don't define multiple connected firewalls, the context defaults to the firewall name
-        // See https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
+
         $firewallContext = 'main';
 
-        // you may need to use a different token class depending on your application.
-        // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
         $token = new PostAuthenticationGuardToken($user, $firewallName, $user->getRoles());
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());
-        $this->doSetUp()->getCookieJar()->set($cookie);
+        $this->client->getCookieJar()->set($cookie);
     }
 }

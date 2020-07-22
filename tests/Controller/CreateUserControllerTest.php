@@ -9,31 +9,31 @@
 namespace App\Tests\Controller;
 
 
+use App\DataFixtures\AppFixtures;
 use App\Entity\User;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
 class CreateUserControllerTest extends WebTestCase
 {
-    protected $client = null;
+    use FixturesTrait;
 
-    protected function doSetUp()
+    protected function dataFixture()
     {
-        if ($this->client == null) {
-
-            $this->client = static::createClient();
-        }
-
-        return $this->client;
+        $this->loadFixtures([
+            AppFixtures::class,
+        ]);
     }
 
     public function testCreateAction()
     {
-        $this->doSetUp();
+        $this->dataFixture();
         $this->logIn();
 
-        $crawler = $this->doSetUp()->request('GET', '/users/create');
+        $crawler = $this->client->request('GET', '/users/create');
+
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('Ajouter',$crawler->filter('button')->text());
 
@@ -61,17 +61,14 @@ class CreateUserControllerTest extends WebTestCase
         $user = self::$container->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'username_test']);
 
         $firewallName = 'main';
-        // if you don't define multiple connected firewalls, the context defaults to the firewall name
-        // See https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
+
         $firewallContext = 'main';
 
-        // you may need to use a different token class depending on your application.
-        // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
         $token = new PostAuthenticationGuardToken($user, $firewallName, $user->getRoles());
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());
-        $this->doSetUp()->getCookieJar()->set($cookie);
+        $this->client->getCookieJar()->set($cookie);
     }
 }
