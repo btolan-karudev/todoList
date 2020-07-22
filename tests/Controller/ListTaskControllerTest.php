@@ -8,7 +8,7 @@
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\AppFixtures;
+use App\DataFixtures\AdminUserFixture;
 use App\Entity\User;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -22,7 +22,7 @@ class ListTaskControllerTest extends WebTestCase
     protected function dataFixture()
     {
         $this->loadFixtures([
-            AppFixtures::class,
+            AdminUserFixture::class,
         ]);
     }
 

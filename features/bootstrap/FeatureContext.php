@@ -35,6 +35,39 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
+     * @BeforeSuite
+     */
+    public static function beforeSuite()
+    {
+        StaticDriver::setKeepStaticConnections(true);
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function beforeScenario()
+    {
+        StaticDriver::beginTransaction();
+        $this->user = null;
+    }
+
+    /**
+     * @AfterScenario
+     */
+    public function afterScenario()
+    {
+        StaticDriver::rollBack();
+    }
+
+    /**
+     * @AfterSuite
+     */
+    public static function afterSuite()
+    {
+        StaticDriver::setKeepStaticConnections(false);
+    }
+
+    /**
      * @Given there is an admin username :username with password :password
      * @param $username
      * @param $password
@@ -151,39 +184,5 @@ class FeatureContext extends MinkContext implements Context
             ->findOneBy(['title' => $taskToggle]);
 
         $this->pressButton('toggle_'.$task->getId());
-    }
-
-
-    /**
-     * @BeforeSuite
-     */
-    public static function beforeSuite()
-    {
-        StaticDriver::setKeepStaticConnections(true);
-    }
-
-    /**
-     * @BeforeScenario
-     */
-    public function beforeScenario()
-    {
-        StaticDriver::beginTransaction();
-        $this->user = null;
-    }
-
-    /**
-     * @AfterScenario
-     */
-    public function afterScenario()
-    {
-        StaticDriver::rollBack();
-    }
-
-    /**
-     * @AfterSuite
-     */
-    public static function afterSuite()
-    {
-        StaticDriver::setKeepStaticConnections(false);
     }
 }

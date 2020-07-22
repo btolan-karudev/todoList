@@ -9,7 +9,7 @@
 namespace App\Tests\Controller;
 
 
-use App\DataFixtures\AppFixtures;
+use App\DataFixtures\AdminUserFixture;
 use App\Entity\User;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -27,7 +27,7 @@ class EditUserControllerTest extends WebTestCase
     {
         if ($this->userInBdd == null) {
             $this->loadFixtures([
-                AppFixtures::class,
+                AdminUserFixture::class,
             ]);
 
             $this->em = self::$container->get('doctrine')->getManager();
