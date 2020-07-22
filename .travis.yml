@@ -3,10 +3,10 @@ php:
   - '7.3'
 services:
   - mysql
-before_install:
-  - mysql -e 'CREATE DATABASE todo_list_test'
+
 script:
   - composer install
-  - bin/console doctrine:schema:create
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:update --force --env=test
   - vendor/bin/simple-phpunit
 
