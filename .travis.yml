@@ -4,7 +4,7 @@ php:
 services:
   - mysql
 before_install:
-  - mysql -e 'CREATE DATABASE todo_list_test;'
+  - mysql -e 'CREATE DATABASE todo_list;'
 script:
   - composer install
   - bin/console doctrine:schema:create
