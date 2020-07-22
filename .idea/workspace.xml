@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41b45ae3-42cc-4c14-a21a-079b6f23391e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/AdminUserFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/bootstrap/FeatureContext.php" beforeDir="false" afterPath="$PROJECT_DIR$/features/bootstrap/FeatureContext.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/CreateTaskControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/CreateTaskControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/CreateUserControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/CreateUserControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/DefaultControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/DefaultControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/EditUserControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/EditUserControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/ListTaskControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/ListTaskControllerTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="85">
+              <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -391,12 +383,12 @@
       <workItem from="1595323241978" duration="5718000" />
       <workItem from="1595391788703" duration="2184000" />
       <workItem from="1595398875361" duration="6311000" />
-      <workItem from="1595416251034" duration="4057000" />
+      <workItem from="1595416251034" duration="5059000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="381987000" />
+    <option name="totallyTimeSpent" value="382989000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -636,11 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-607" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -799,10 +786,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-214" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="85">
+          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
         </state>
       </provider>
     </entry>

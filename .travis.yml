@@ -1,10 +1,10 @@
 language: php
 php:
   - '7.3'
-
+services:
+  - mysql
+  
 script:
   - composer install
   - vendor/bin/simple-phpunit
 
-services:
-  - mysql
