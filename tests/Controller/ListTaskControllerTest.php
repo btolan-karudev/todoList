@@ -19,6 +19,8 @@ class ListTaskControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
+    protected $client = null;
+
     protected function dataFixture()
     {
         $this->loadFixtures([
@@ -28,6 +30,7 @@ class ListTaskControllerTest extends WebTestCase
 
     public function testListTaskLoggedIn()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 

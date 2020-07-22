@@ -22,6 +22,7 @@ class EditUserControllerTest extends WebTestCase
 
     protected $userInBdd;
     protected $em;
+    protected $client = null;
 
     protected function dataFixture()
     {
@@ -33,11 +34,11 @@ class EditUserControllerTest extends WebTestCase
             $this->em = self::$container->get('doctrine')->getManager();
             $this->userInBdd = $this->em->getRepository(User::class)->findOneBy(['username' => 'username_test']);
         }
-
     }
 
     public function testEditAction()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 

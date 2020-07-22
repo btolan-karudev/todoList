@@ -20,6 +20,8 @@ class CreateUserControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
+    protected $client = null;
+
     protected function dataFixture()
     {
         $this->loadFixtures([
@@ -29,6 +31,7 @@ class CreateUserControllerTest extends WebTestCase
 
     public function testCreateAction()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 

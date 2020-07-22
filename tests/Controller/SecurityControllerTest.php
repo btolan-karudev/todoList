@@ -13,8 +13,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
+    protected $client = null;
+
     public function testLoggedIn()
     {
+        $this->client = static::createClient();
+
         $crawler = $this->client->request('GET', '/login');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());

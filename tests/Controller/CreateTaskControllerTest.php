@@ -19,18 +19,18 @@ class CreateTaskControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
-    public $fix;
+    protected $client = null;
+
     protected function dataFixture()
     {
         $this->loadFixtures([
             AdminUserFixture::class,
         ]);
-
-        $this->fix = $this->client;
     }
 
     public function testCreateAction()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 
@@ -73,6 +73,6 @@ class CreateTaskControllerTest extends WebTestCase
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());
-        $this->fix->getCookieJar()->set($cookie);
+        $this->client->getCookieJar()->set($cookie);
     }
 }

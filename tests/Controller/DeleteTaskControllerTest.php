@@ -24,6 +24,7 @@ class DeleteTaskControllerTest extends WebTestCase
     protected $em;
     protected $taskInBddNoDeleted;
     protected $taskInBdd;
+    protected $client = null;
 
     protected function dataFixture()
     {
@@ -40,6 +41,7 @@ class DeleteTaskControllerTest extends WebTestCase
 
     public function testDeleteTaskAction()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 
@@ -56,6 +58,7 @@ class DeleteTaskControllerTest extends WebTestCase
 
     public function testDeleteTaskActionNoAuthorized()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 

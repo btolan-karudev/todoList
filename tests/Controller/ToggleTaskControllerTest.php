@@ -23,6 +23,7 @@ class ToggleTaskControllerTest extends WebTestCase
 
     protected $em;
     protected $taskInBdd;
+    protected $client = null;
 
     protected function dataFixture()
     {
@@ -38,6 +39,7 @@ class ToggleTaskControllerTest extends WebTestCase
 
     public function testToggleTaskAction()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 

@@ -13,6 +13,8 @@ class DefaultControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
+    protected $client = null;
+
     protected function dataFixture()
     {
         $this->loadFixtures([
@@ -22,6 +24,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function testIndexActionUserNotLoggedIn()
     {
+        $this->client = static::createClient();
         $this->client->request('GET', '/');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
@@ -29,6 +32,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function testIndexActionUserLoggedIn()
     {
+        $this->client = static::createClient();
         $this->dataFixture();
         $this->logIn();
 
