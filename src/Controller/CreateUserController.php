@@ -49,14 +49,12 @@ class CreateUserController
         if ($form->isSubmitted()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
             $em->persist($user);
             $em->flush();
 
             $session->getFlashBag()->add('success', "L'utilisateur a bien été ajouté.");
 
             $router = $generator->generate('user_list');
-
             return new RedirectResponse($router, 302);
         }
 

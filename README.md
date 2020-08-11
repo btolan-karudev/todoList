@@ -1,6 +1,7 @@
 # ToDo & Co
 
 [![Build Status](https://travis-ci.org/michaelgtfr/todoList.svg?branch=master)](https://travis-ci.org/michaelgtfr/todoList)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f73a3fc595b4e98b7815d56ba852608)](https://www.codacy.com/manual/michaelgtfr/todoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=michaelgtfr/todoList&amp;utm_campaign=Badge_Grade)
 
 ##Presentation
 
