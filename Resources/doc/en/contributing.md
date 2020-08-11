@@ -1,8 +1,8 @@
-#Contributing
+# Contributing
 
 This document presents the collaboration part on the ToDo & Co project.
 
-##First step: Fork and Cloning:
+## First step: Fork and Cloning:
 
 Before starting to recover the source code of the site, it is necessary to prepare its working file. To do this create a folder where you want to be able to put the source code there.
 In this folder open the `Git Bash` terminal (often right click the mouse then click on" Git Bash ").  
@@ -30,7 +30,7 @@ Once your modification is done, you add it to the index with the command `git ad
 Then you save it with the command `git commit –m" the text explaining the modification on the file "`. This step committed the change.  
 **ex:** `git commit -m" add the securityCheck method "`
 
-##Les « Pull Request » :
+## Les « Pull Request » :
 
 Before submitting your changes to GitHub. Do a `git status` to see if all your changes are saved to Git.
 To send the code to your GitHub account, you will write `git push origin .... (the name of your branch) ...`.  

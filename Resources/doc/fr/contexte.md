@@ -1,4 +1,4 @@
-#Contexte
+# Contexte
 
 Vous venez d’intégrer une startup dont le cœur de métier est une application permettant de gérer ses tâches quotidiennes. L’entreprise vient tout juste d’être montée, et l’application a dû être développée à toute vitesse pour permettre de montrer à de potentiels investisseurs que le concept est viable (on parle de Minimum Viable Product ou MVP).
 
@@ -18,11 +18,11 @@ Il vous est également demandé d’analyser le projet grâce à des outils vous
 
 Il ne vous est pas demandé de corriger les points remontés par l’audit de qualité de code et de performance. Cela dit, si le temps vous le permet, ToDo & Co sera ravi que vous réduisiez la dette technique de cette application.
 
-#Description du besoin
+# Description du besoin
 
-##Corrections d'anomalies
+## Corrections d'anomalies
 
-###Une tâche doit être attachée à un utilisateur
+### Une tâche doit être attachée à un utilisateur
 
 Actuellement, lorsqu’une tâche est créée, elle n’est pas rattachée à un utilisateur. Il vous est demandé d’apporter les corrections nécessaires afin qu’automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit rattaché à la tâche nouvellement créée.
 
@@ -30,7 +30,7 @@ Lors de la modification de la tâche, l’auteur ne peut pas être modifié.
 
 Pour les tâches déjà créées, il faut qu’elles soient rattachées à un utilisateur “anonyme”.
 
-###Choisir un rôle pour un utilisateur
+### Choisir un rôle pour un utilisateur
 
 Lors de la création d’un utilisateur, il doit être possible de choisir un rôle pour celui-ci. Les rôles listés sont les suivants :
 
@@ -39,9 +39,9 @@ Lors de la création d’un utilisateur, il doit être possible de choisir un r�
 
 Lors de la modification d’un utilisateur, il est également possible de changer le rôle d’un utilisateur.
 
-##Implémentation de nouvelles fonctionnalités
+## Implémentation de nouvelles fonctionnalités
 
-###Autorisation
+### Autorisation
 
 Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
 
@@ -49,7 +49,7 @@ Les tâches ne peuvent être supprimées que par les utilisateurs ayant créé l
 
 Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
 
-###Implémentation de tests automatisés
+### Implémentation de tests automatisés
 
 Il vous est demandé d’implémenter les tests automatisés (tests unitaires et fonctionnels) nécessaires pour assurer que le fonctionnement de l’application est bien en adéquation avec les demandes.
 
@@ -59,7 +59,7 @@ Vous prévoirez des données de tests afin de pouvoir prouver le fonctionnement 
 
 Il vous est demandé de fournir un rapport de couverture de code au terme du projet. Il faut que le taux de couverture soit supérieur à 70 %.
 
-##Documentation technique
+## Documentation technique
 
 Il vous est demandé de produire une documentation expliquant comment l’implémentation de l'authentification a été faite. Cette documentation se destine aux prochains développeurs juniors qui rejoindront l’équipe dans quelques semaines. Dans cette documentation, il doit être possible pour un débutant avec le framework Symfony de :
 
@@ -73,7 +73,7 @@ Par ailleurs, vous ouvrez la marche en matière de collaboration à plusieurs su
 
 Ce document devra aussi détailler le processus de qualité à utiliser ainsi que les règles à respecter.
 
-##Audit de qualité du code & performance de l'application
+## Audit de qualité du code & performance de l'application
 
 Les fondateurs souhaitent pérenniser le développement de l’application. Cela dit, ils souhaitent dans un premier temps faire un état des lieux de la dette technique de l’application.
 

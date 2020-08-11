@@ -1,8 +1,8 @@
-#Contribution
+# Contribution
 
 Ce document présente la partie collaboration sur le projet ToDo &Co.  
 
-##Première Etape : Le Fork et le Clonage:
+## Première Etape : Le Fork et le Clonage:
 
 Avant de commencer à récupérer le code source du site, il faut préparer son dossier de travail. Pour ce faire créer un dossier ou vous voulez pour pouvoir y mettre le code source. 
 Dans ce dossier ouvrez le terminal `Git Bash` (souvent clique droit de la souris puis cliquer sur « Git Bash »).  
@@ -17,7 +17,7 @@ Cliquer sur le bouton `Code` puis copier-coller le lien sous l’onglet « Clone
 _Le téléchargement commence. A Noter : 
 Pendant la phase de téléchargement du code source, il se peut que Git demande votre login et votre mot de passe._ 
 
-##Commit : 
+## Commit : 
  
 Dans un premier temps. Vous allez créer une nouvelle branche. Cette branche aura comme nom, le nom de la fonctionnalité créer. Les fonctionnalités à créer son écrite dans la partie issues sur le GitHub de l’auteur du projet. Pour créer cette branche vous pouvez utiliser la commande `git checkout –b …….(le nom de la branche)…` .  
 **ex:**	 `git checkout –b tests_unitaire_update`  
@@ -30,7 +30,7 @@ Votre modification faîte, vous l’ajouter à l’index avec la commande `git a
 Puis vous l’enregistrez avec la commande  `git commit –m "le texte expliquant la modification sur le fichier"` . Cette étape commit la modification.  
 **ex:** 	`git commit -m "add the securityCheck method"`
 
-##Les « Pull Request » :  
+## Les « Pull Request » :  
 
 Avant d’envoyer vos modifications sur GitHub. Faite un `git status` pour voir si toute vos modifications son bien enregistrer sur Git.
 Pour envoyer le code sur votre compte GitHub, vous allez écrire `git push origin ….(le nom de votre branche)…`.  
