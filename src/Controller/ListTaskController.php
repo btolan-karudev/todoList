@@ -18,6 +18,7 @@ use Twig\Environment;
 class ListTaskController
 {
     /**
+     * displays a page listing the tasks recorded in database
      * @Route("/tasks", name="task_list")
      * @param  EntityManagerInterface  $em
      * @param Environment $twig

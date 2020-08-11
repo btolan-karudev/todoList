@@ -17,6 +17,7 @@ use Twig\Environment;
 class ListUserController
 {
     /**
+     * displays a page listing registered users
      * @Route("/users", name="user_list")
      * @param Environment $twig
      * @param EntityManagerInterface $em

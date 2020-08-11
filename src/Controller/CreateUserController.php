@@ -25,6 +25,7 @@ use Twig\Environment;
 class CreateUserController
 {
     /**
+     * allows the display of a user creation form and its registration in database
      * @Route("/users/create", name="user_create")
      * @param Request $request
      * @param FormFactoryInterface $formFactory

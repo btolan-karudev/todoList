@@ -10,6 +10,7 @@ use Twig\Environment;
 class SecurityController
 {
     /**
+     * display the login form
      * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @param Environment $twig

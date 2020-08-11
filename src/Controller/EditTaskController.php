@@ -23,6 +23,7 @@ use Twig\Environment;
 class EditTaskController
 {
     /**
+     * allows the update of a task
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @param Task $task
      * @param Request $request

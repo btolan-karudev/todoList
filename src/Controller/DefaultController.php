@@ -9,6 +9,7 @@ use Twig\Environment;
 class DefaultController
 {
     /**
+     * home page of logged in users
      * @Route("/", name="homepage")
      * @param Environment $twig
      * @return Response

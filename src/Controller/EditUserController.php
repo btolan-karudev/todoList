@@ -18,6 +18,7 @@ use Twig\Environment;
 class EditUserController
 {
     /**
+     * allows the modification of an account user
      * @Route("/users/{id}/edit", name="user_edit")
      * @param User $user
      * @param Request $request

@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Security;
 class DeleteTaskController
 {
     /**
+     * allows the deletion of a task
      * @Route("/tasks/{id}/delete", name="task_delete")
      * @param Task $task
      * @param UrlGeneratorInterface $generator

@@ -25,6 +25,7 @@ use Twig\Environment;
 class CreateTaskController
 {
     /**
+     * allows the display of the task creation form and its recording in database
      * @Route("/tasks/create", name="task_create")
      * @param Request $request
      * @param FormFactoryInterface $formFactory

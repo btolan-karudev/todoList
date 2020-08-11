@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class ToggleTaskController
 {
     /**
+     * allows the ticking of "finished" or "to do" tasks.
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      * @param Task $task
      * @param UrlGeneratorInterface $generator
