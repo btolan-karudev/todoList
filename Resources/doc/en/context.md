@@ -1,4 +1,4 @@
-#Context
+# Context
 
 You have just joined a startup whose core business is an application for managing its daily tasks. The company has just started up, and the application had to be developed at full speed to allow to show potential investors that the concept is viable (we speak of Minimum Viable Product or MVP).
 
@@ -18,11 +18,11 @@ You are also asked to analyze the project using tools allowing you to have an ov
 
 You are not asked to correct the points raised by the code quality and performance audit. That said, if time permits, ToDo & Co will be happy to reduce the technical debt for this application.
 
-#Description of the requirement
+# Description of the requirement
 
-##Bug fixes
+## Bug fixes
 
-###A task must be attached to a user
+### A task must be attached to a user
 
 Currently, when a task is created, it is not linked to a user. You are asked to make the necessary corrections so that automatically, when saving the task, the authenticated user is attached to the newly created task.
 
@@ -30,7 +30,7 @@ When editing the task, the author cannot be changed.
 
 For tasks already created, they must be linked to an "anonymous" user.  
 
-###Choose a role for a user  
+### Choose a role for a user  
 
 When creating a user, it should be possible to choose a role for that user. The roles listed are:
 
@@ -41,7 +41,7 @@ When modifying a user, it is also possible to change the role of a user.
 
 ## Implementation of new functionalities
 
-###Authorization
+### Authorization
 
 Only users with the administrator role (ROLE_ADMIN) should be able to access the user management pages.
 
@@ -59,7 +59,7 @@ You will provide test data in order to be able to prove the operation in the cas
 
 You are asked to provide a code coverage report at the end of the project. The coverage rate must be greater than 70%.
 
-##Technical documentation
+## Technical documentation
 
 You are asked to produce documentation explaining how the implementation of authentication was done. This documentation is intended for the next junior developers who will join the team in a few weeks. In this documentation, it should be possible for a beginner with the Symfony framework to:
 
